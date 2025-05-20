@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>Conversión de AFND a AFD</h2>
+
+  <div *ngIf="afnd" class="automaton-section">
+    <h3>Autómata Finito No Determinístico (AFND)</h3>
+    <app-automaton-diagram [automaton]="afnd"></app-automaton-diagram>
+    <app-automaton-table [automaton]="afnd"></app-automaton-table>
+  </div>
+
+  <div *ngIf="afd" class="automaton-section">
+    <h3>Autómata Finito Determinístico (AFD)</h3>
+    <app-automaton-diagram [automaton]="afd"></app-automaton-diagram>
+    <app-automaton-table [automaton]="afd"></app-automaton-table>
+  </div>
+
+  <div *ngIf="!afnd" class="no-automaton-message">
+    Por favor, primero ingresa un autómata finito no determinístico en la sección anterior.
+  </div>
+</div>

@@ -1,0 +1,63 @@
+/* Contenedor de la tabla, similar a .form-section */
+.automaton-container {
+  margin-top: 20px; /* Espacio arriba como en otros secciones */
+  margin-bottom: 20px; /* Espacio abajo si hay contenido después */
+  padding: 15px; /* Padding interno como en .form-section */
+  background-color: #fff; /* Fondo blanco como los contenedores */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilo para el título H3 dentro del componente */
+.automaton-container h3 {
+  /* Heredará los estilos de h3 globales, pero aseguramos margen inferior */
+  margin-bottom: 15px;
+  color: #3498db; /* Color azul del tema */
+}
+
+
+/* Estilos básicos de la tabla */
+table {
+  border-collapse: collapse; /* Colapsar bordes */
+  width: 100%; /* Ancho completo del contenedor */
+  margin-top: 10px; /* Espacio arriba de la tabla */
+  font-size: 0.9em; /* Tamaño de fuente ligeramente menor */
+}
+
+/* Estilos para las celdas (encabezados y datos) */
+th, td {
+  border: 1px solid #ddd; /* Borde fino y claro */
+  padding: 10px 8px; /* Padding interno */
+  text-align: center; /* Centrar texto */
+}
+
+/* Estilos específicos para los encabezados */
+th {
+  background-color: #f2f2f2; /* Un fondo gris muy claro */
+  font-weight: bold; /* Negrita */
+  color: #555; /* Un color de texto un poco más oscuro que el normal */
+  /* Puedes usar #3498db si quieres un encabezado con color de tema,
+     pero #f2f2f2 con texto oscuro es más común para tablas de datos. */
+}
+
+/* Estilo para la primera columna (Nombres de estados) */
+td:first-child {
+    font-weight: bold; /* Nombre del estado en negrita */
+    text-align: left; /* Alinear el nombre del estado a la izquierda */
+    color: #2c3e50; /* Un color de texto más destacado para los estados */
+}
+
+/* Estilos para filas impares (opcional, para efecto cebra) */
+/* tr:nth-child(odd) {
+  background-color: #fff; Mantener fondo blanco
+} */
+
+/* Estilos para filas pares (efecto cebra) */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Fondo ligeramente gris para filas pares */
+}
+
+/* Estilo al pasar el ratón por encima de las filas */
+tbody tr:hover {
+  background-color: #eef; /* Un azul muy claro al pasar el ratón */
+}

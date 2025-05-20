@@ -1,0 +1,28 @@
+<div *ngIf="automaton" class="automaton-container">
+  <h3>Tabla de Transiciones</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Estados</th>
+        <th *ngFor="let symbol of automaton.alphabet">Símbolos de entrada: {{ symbol }}</th>
+        <th>Acepta(1) / Rechaza (0)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let state of automaton.states">
+        <td>{{ state.name }}</td>
+        <td *ngFor="let symbol of automaton.alphabet">
+          {{ getDestStateNames(state.id, symbol) }}
+        </td>
+        <td>
+          {{ state.isFinal ? 1 : 0 }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="!automaton">
+  <p>Esperando datos del autómata...</p>
+</div>
