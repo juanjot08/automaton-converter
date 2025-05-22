@@ -44,12 +44,29 @@ export class AutomatonService {
 
   // Convierte un AFND a AFD
   convertToAFD(afnd: Automaton): Automaton {
-    // Implementación del algoritmo de conversión AFND a AFD
     const afd: Automaton = {
       states: [],
       alphabet: [...afnd.alphabet].filter(symbol => symbol !== 'ε' && symbol !== ''),
       transitions: []
     };
+
+    // Crear el estado de error
+    const errorStateId = "error";
+    afd.states.push({
+      id: errorStateId,
+      name: errorStateId,
+      isInitial: false,
+      isFinal: false
+    });
+
+    // Agregar transiciones desde el estado de error hacia sí mismo
+    afd.alphabet.forEach(symbol => {
+      afd.transitions.push({
+        from: errorStateId,
+        to: errorStateId,
+        symbol
+      });
+    });
 
     // Obtener el conjunto de estados iniciales (incluir los alcanzables por ε-transiciones)
     const initialState = afnd.states.find(state => state.isInitial);
@@ -88,9 +105,10 @@ export class AutomatonService {
         // Obtener los estados alcanzables con este símbolo
         const nextStateSet = this.getNextStates(currentStateSet, symbol, afnd, epsilonClosure);
 
-        if (nextStateSet.size === 0) continue;
-
-        const nextStateName = Array.from(nextStateSet).sort().join(',');
+        // Si no hay estados alcanzables, redirigir al estado de error
+        const nextStateName = nextStateSet.size > 0
+          ? Array.from(nextStateSet).sort().join(',')
+          : errorStateId;
 
         // Agregar la transición al AFD
         afd.transitions.push({
@@ -100,7 +118,7 @@ export class AutomatonService {
         });
 
         // Si este estado no ha sido procesado, agregarlo a la lista de pendientes
-        if (!processedStates.has(nextStateName)) {
+        if (nextStateSet.size > 0 && !processedStates.has(nextStateName)) {
           processedStates.add(nextStateName);
           pendingStates.push(nextStateSet);
 
