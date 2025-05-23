@@ -38,8 +38,29 @@ export class AutomatonService {
       }
     }
 
-    // Verificamos si hay transiciones con símbolo vacío (epsilon)
-    return automaton.transitions.some(t => t.symbol === 'ε' || t.symbol === '');
+    // Validar que cada estado tenga transiciones para todos los símbolos del alfabeto
+    const states = new Set(automaton.states.map(state => state.id)); // Conjunto de IDs de estados
+    const alphabet = new Set(automaton.alphabet); // Alfabeto del autómata
+
+    for (const stateId of states) {
+      const symbolsWithTransitions = new Set<string>();
+
+      // Recopilar los símbolos para los que hay transiciones desde este estado
+      for (const transition of automaton.transitions) {
+        if (transition.from === stateId) {
+          symbolsWithTransitions.add(transition.symbol);
+        }
+      }
+
+      // Verificar si falta algún símbolo del alfabeto
+      for (const symbol of alphabet) {
+        if (!symbolsWithTransitions.has(symbol)) {
+          return true; // El estado no tiene una transición para este símbolo -> no determinístico
+        }
+      }
+    }
+
+    return false;
   }
 
   // Convierte un AFND a AFD
